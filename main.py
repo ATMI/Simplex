@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 
 LOG = True
@@ -63,18 +65,21 @@ def maximize(A: np.ndarray, b: np.ndarray, c: np.ndarray):
 		i += 1
 
 
-a = np.array(
-	[
-		[1, 2, 2, 4],
-		[2, -1, 1, 2],
-		[4, -2, 1, -1]
-	]
-)
-b = np.array(
-	[40, 8, 10]
-)
-c = np.array(
-	[2, 1, -3, 5]
-)
+# Input format example:
+# #Objective function:
+# 1, 3
+# #Matrix:
+# 1, 1
+# -1, 1
+# #Vector b:
+# 2, 4
+file_info = np.loadtxt("input.txt", dtype=int, delimiter=',')
 
+c = file_info[0]
+b = file_info[file_info.shape[0]-1]
+a = file_info[1:file_info.shape[0]-1]
+
+print("Vector c:", c)
+print("Vector b:", b)
+print("Matrix:\n", a)
 maximize(a, b, c)

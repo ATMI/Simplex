@@ -1,0 +1,7 @@
+#Objective function:
+1, 3
+#Matrix:
+1, 1
+-1, 1
+#Vector b:
+2, 4
