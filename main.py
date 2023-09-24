@@ -109,4 +109,3 @@ if np.any(b < 0) :
 	log('The method is not applicable!')
 else:
 	maximize(a, b, c)
-# TODO: output
