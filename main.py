@@ -1,9 +1,6 @@
-import os
-
 import numpy as np
 
 LOG = True
-np.set_printoptions(precision=2, suppress=True)
 
 
 def log(values):
@@ -65,21 +62,23 @@ def maximize(A: np.ndarray, b: np.ndarray, c: np.ndarray):
 		i += 1
 
 
-# Input format example:
-# #Objective function:
-# 1, 3
-# #Matrix:
-# 1, 1
-# -1, 1
-# #Vector b:
-# 2, 4
-file_info = np.loadtxt("input.txt", dtype=int, delimiter=',')
-
+file_info = np.loadtxt("input.txt", dtype=float, delimiter=',', skiprows=1)
 c = file_info[0]
 b = file_info[file_info.shape[0]-1]
 a = file_info[1:file_info.shape[0]-1]
 
-print("Vector c:", c)
-print("Vector b:", b)
-print("Matrix:\n", a)
-maximize(a, b, c)
+with open("input.txt") as file:
+	line = file.readline().split(",")
+
+task_type = line[0]
+accuracy = len(line[1].split(".")[1])-1
+
+c = -c if task_type == "Minimize" else c
+
+np.set_printoptions(precision=accuracy, suppress=True)
+
+if np.any(b < 0) :
+	log('The method is not applicable!')
+else:
+	maximize(a, b, c)
+# TODO: output
