@@ -21,7 +21,32 @@ open terminal and run the following commands:
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-// TODO
 Input format:
+The input contains:
+* Maximize or minimize
+* The approximation accuracy.
+* A vector of coefficients of objective function - C.
+* A matrix of coefficients of constraint function - A.
+* A vector of right-hand side numbers - b.
 
-Output:
+Input Example:
+
+    Maximize, 0.01
+    #Objective function:
+    1, 3
+    #Matrix:
+    1, 1
+    -1, 1
+    #Vector b:
+    2, 4
+
+Output format
+The output contains:
+* The string ”The method is not applicable!”
+or
+* A vector of decision variables - x
+* Maximum (minimum) value of the objective function.
+
+Output of the Example:
+    
+    # todo 
