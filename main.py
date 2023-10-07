@@ -80,8 +80,8 @@ def maximize(A: np.ndarray, b: np.ndarray, c: np.ndarray):
 		# log('')
 		i += 1
 
-def simplex(input):
-	with open(input) as file:
+def simplex(input_file):
+	with open(input_file) as file:
 		elements = file.read().replace("\n", ' ').split("#")[1:]
 	c, a, b = [np.asarray(i.split(":")[1].strip().split(" ")) for i in elements]
 	c = np.array(c, dtype=float)
