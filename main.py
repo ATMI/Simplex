@@ -57,8 +57,8 @@ def maximize(A: np.ndarray, b: np.ndarray, c: np.ndarray):
 		pivot_col = tableau[1:, pivot_n]
 		b_col = tableau[1:, -1]
 
-		with np.errstate(divide='ignore'):
-			ratio = b_col / pivot_col # FIXME: division by zero
+		not_zeros = np.where(pivot_col != 0)[0]
+		ratio = np.array([b_col[i]/pivot_col[i] for i in not_zeros])
 		positive_indices = np.where(ratio > 0)  # Indices of positive ratios
 
 		if not positive_indices:
@@ -66,8 +66,8 @@ def maximize(A: np.ndarray, b: np.ndarray, c: np.ndarray):
 			output(tableau)
 			break
 
-		index = np.argmin(ratio[positive_indices])
-		pivot_m = positive_indices[0][index] +1
+		pos_ind = [not_zeros[i] for i in np.where(ratio > 0)[0]]
+		pivot_m = pos_ind[np.argmin(ratio[positive_indices])] + 1
 		# log(f"Pivot row available: {pivot_m}")
 
 		pivot = tableau[pivot_m, pivot_n]
