@@ -2,12 +2,9 @@ import numpy as np
 
 LOG = True
 
-
 def log(values):
 	if LOG:
 		print(values)
-
-
 
 def ones(arr: np.ndarray):
 	# Find the indices where value is 1
@@ -25,7 +22,6 @@ def output(tableau: np.ndarray):
 		x[item[0]] = tableau[item[1]][m-1]
 	print("A vector of decision variables:", x)
 	print("Optimal value:", np.array([tableau[0][tableau.shape[1]-1]]))
-
 
 def maximize(A: np.ndarray, b: np.ndarray, c: np.ndarray):
 	assert np.ndim(A) == 2
@@ -84,23 +80,29 @@ def maximize(A: np.ndarray, b: np.ndarray, c: np.ndarray):
 		# log('')
 		i += 1
 
+def simplex(input):
+	with open(input) as file:
+		elements = file.read().replace("\n", ' ').split("#")[1:]
+	c, a, b = [np.asarray(i.split(":")[1].strip().split(" ")) for i in elements]
+	c = np.array(c, dtype=float)
+	b = np.array(b, dtype=float)
+	a = np.reshape(np.array(a, dtype=float), (-1, c.size))
 
-with open("input.txt") as file:
-	elements = file.read().replace("\n",' ').split("#")[1:]
-c, a, b, accuracy, task_type = [np.asarray(i.split(":")[1].strip().split(" ")) for i in elements]
-c = np.array(c, dtype=float)
-b = np.array(b, dtype=float)
-a = np.reshape(np.array(a, dtype=float), (-1,c.size))
+	print("Enter the task type:")
+	task_type = input()
+	print("Enter the approximation accuracy:")
+	accuracy = input()
 
-decimals = len(str(accuracy[0]).split('.')[1])
+	decimals = len(str(accuracy).split('.')[1])
 
+	# Change minimize problem to maximize
+	c = -c if task_type in ["Minimize", "Min", "min", "minimize"] else c
 
-# Change minimize problem to maximize
-c = -c if task_type == "Minimize" else c
+	np.set_printoptions(precision=decimals, suppress=True)
 
-np.set_printoptions(precision=decimals, suppress=True)
+	if np.any(b < 0):
+		log('The method is not applicable!')
+	else:
+		maximize(a, b, c)
 
-if np.any(b < 0) :
-	log('The method is not applicable!')
-else:
-	maximize(a, b, c)
+simplex("input.txt")
