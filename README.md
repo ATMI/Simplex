@@ -9,36 +9,33 @@ Simplex method implementation to solve linear programming problems
 * [Python](https://www.python.org/)
 
 <!-- GETTING STARTED -->
-## Running the code
-open terminal and run the following commands:
+## Requirements
+To install dependencies you may use pip.
+open terminal and run the following command:
 
     pip install -r requirements.txt
-    python main.py
-
-### Further reading
-* [Simplex method](https://en.wikipedia.org/wiki/Simplex_algorithm)
-
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## QuickStart
 Input format:
-The input contains:
-* Maximize or minimize
-* The approximation accuracy.
+The input file (input.txt) contains:
 * A vector of coefficients of objective function - C.
 * A matrix of coefficients of constraint function - A.
 * A vector of right-hand side numbers - b.
 
 Input Example:
 
-    Maximize, 0.01
     #Objective function:
-    1, 3
+    1 3
     #Matrix:
-    1, 1
-    -1, 1
+    1 1
+    -1 1
     #Vector b:
-    2, 4
+    2 4
+
+Running the code:
+
+    python main.py -p max
 
 Output format
 The output contains:
@@ -49,4 +46,15 @@ or
 
 Output of the Example:
     
-    # todo 
+    A vector of decision variables: [0. 2.]
+    Optimal value: [6.]
+
+## Options
+Help -h: show available commands. 
+Problem -p: specify type of the problem min or max (default: max)
+Input -i: specify input file (default: input.txt)
+Accuracy -a: specify approximation accuracy (default: 0.001)
+Log -l: set logging to true (default: false)
+
+### Further reading
+* [Simplex method](https://en.wikipedia.org/wiki/Simplex_algorithm)
